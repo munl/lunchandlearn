@@ -1,0 +1,46 @@
+entity School {
+	district Integer,
+    address String
+    
+}
+
+entity Student {
+	firstName String,
+    lastName String,
+    age Integer
+}
+
+entity Course {
+	subject String
+    
+}
+
+enum StaffType {
+	PRINCIPAL, TEACHER
+}
+
+relationship OneToOne {
+	School{principal} to User,
+    Course{teacher} to User
+}
+
+
+relationship OneToMany {
+    School{courses} to Course{school}
+}
+
+relationship ManyToMany {
+	Student{courses} to Course{students}
+}
+
+
+
+// Set pagination options
+paginate School, Student with pagination
+
+//dto * with mapstruct
+
+// Set service options to all except few
+//service all with serviceClass
+// Set an angular suffix
+angularSuffix * with mySuffix

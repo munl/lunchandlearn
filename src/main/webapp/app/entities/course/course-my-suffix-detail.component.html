@@ -1,0 +1,35 @@
+
+<div *ngIf="course">
+    <h2><span>Course</span> {{course.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Subject</span></dt>
+        <dd>
+            <span>{{course.subject}}</span>
+        </dd>
+        <dt><span>Teacher</span></dt>
+        <dd>
+            {{course.teacher?.id}}
+        </dd>
+        <dt><span>School</span></dt>
+        <dd>
+            <div *ngIf="course.school">
+                <a [routerLink]="['/school-my-suffix', course.school?.id]">{{course.school?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'course-my-suffix/'+ course.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

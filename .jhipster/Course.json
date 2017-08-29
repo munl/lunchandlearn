@@ -1,0 +1,38 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "teacher",
+            "otherEntityName": "user",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "course"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "school",
+            "otherEntityName": "school",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "students",
+            "otherEntityName": "student",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "courses"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "subject",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170829002905",
+    "entityTableName": "course",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "angularJSSuffix": "mySuffix"
+}

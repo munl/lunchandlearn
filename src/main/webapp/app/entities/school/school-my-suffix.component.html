@@ -1,0 +1,70 @@
+<div>
+    <h2>
+        <span>Schools</span>
+        <button class="btn btn-primary float-right jh-create-entity create-school-my-suffix" [routerLink]="['/', { outlets: { popup: ['school-my-suffix-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new School
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="schools">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="district"><span>District</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="address"><span>Address</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="principal.id"><span>Principal</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let school of schools ;trackBy: trackId">
+                <td><a [routerLink]="['../school-my-suffix', school.id ]">{{school.id}}</a></td>
+                <td>{{school.district}}</td>
+                <td>{{school.address}}</td>
+                <td>
+                    {{school.principal?.id}}
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../school-my-suffix', school.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'school-my-suffix/'+ school.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'school-my-suffix/'+ school.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+        <div *ngIf="schools && schools.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
+        </div>
+</div>

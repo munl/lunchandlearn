@@ -1,0 +1,33 @@
+
+<div *ngIf="school">
+    <h2><span>School</span> {{school.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>District</span></dt>
+        <dd>
+            <span>{{school.district}}</span>
+        </dd>
+        <dt><span>Address</span></dt>
+        <dd>
+            <span>{{school.address}}</span>
+        </dd>
+        <dt><span>Principal</span></dt>
+        <dd>
+            {{school.principal?.id}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'school-my-suffix/'+ school.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

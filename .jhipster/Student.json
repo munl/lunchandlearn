@@ -1,0 +1,33 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "students",
+            "relationshipName": "courses",
+            "otherEntityName": "course",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "firstName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lastName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "age",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20170829002904",
+    "entityTableName": "student",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no",
+    "angularJSSuffix": "mySuffix"
+}

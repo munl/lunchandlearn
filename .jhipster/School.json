@@ -1,0 +1,35 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "principal",
+            "otherEntityName": "user",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "school"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "courses",
+            "otherEntityName": "course",
+            "otherEntityRelationshipName": "school"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "district",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "address",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170829002903",
+    "entityTableName": "school",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no",
+    "angularJSSuffix": "mySuffix"
+}
