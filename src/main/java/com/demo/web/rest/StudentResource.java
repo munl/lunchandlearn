@@ -1,8 +1,10 @@
 package com.demo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.demo.domain.Course;
 import com.demo.domain.Student;
 
+import com.demo.repository.CourseRepository;
 import com.demo.repository.StudentRepository;
 import com.demo.web.rest.util.HeaderUtil;
 import com.demo.web.rest.util.PaginationUtil;
@@ -36,8 +38,11 @@ public class StudentResource {
 
     private final StudentRepository studentRepository;
 
-    public StudentResource(StudentRepository studentRepository) {
+    private final CourseRepository courseRepository;
+
+    public StudentResource(StudentRepository studentRepository, CourseRepository courseRepository) {
         this.studentRepository = studentRepository;
+        this.courseRepository = courseRepository;
     }
 
     /**
@@ -54,6 +59,8 @@ public class StudentResource {
         if (student.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new student cannot already have an ID")).body(null);
         }
+        Course randomCourse = courseRepository.findOneWithEagerRelationships(1L);
+        student.addCourses(randomCourse);
         Student result = studentRepository.save(student);
         return ResponseEntity.created(new URI("/api/students/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -92,9 +99,10 @@ public class StudentResource {
     @Timed
     public ResponseEntity<List<Student>> getAllStudents(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of Students");
-        Page<Student> page = studentRepository.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/students");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        List<Student> page = studentRepository.findAllWithEagerRelationships();
+//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(, "/api/students");
+        return ResponseEntity.ok().body(page);
+//        return new ResponseEntity<>(page, headers, HttpStatus.OK);
     }
 
     /**

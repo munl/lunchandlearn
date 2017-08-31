@@ -68,7 +68,7 @@ public class StudentResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        StudentResource studentResource = new StudentResource(studentRepository);
+        StudentResource studentResource = new StudentResource(studentRepository, courseRepository);
         this.restStudentMockMvc = MockMvcBuilders.standaloneSetup(studentResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
